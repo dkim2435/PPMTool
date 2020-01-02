@@ -2,12 +2,17 @@ package fullstackJavaReact.ppmtoolBackend.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 // makes this entity to create table with attributes we define here.
@@ -16,13 +21,26 @@ public class Project {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	// Validations
+	@NotBlank(message = "Project name is required") // This attribute cannot be blank
 	private String projectName;
+	
+	@NotBlank(message = "Project Identifier is required") // This attribute cannot be blank
+	@Size(min=4, max=5, message="Please use 4 to 5 characters") //Restricts the limit of characters
+	@Column(updatable = false, unique = true) // allows you to set parameters to itself
 	private String projectIdentifier;
+	
+	@NotBlank(message="Project description is required") // This attribute cannot be blank
 	private String description;
+	
+	@JsonFormat(pattern ="yyyy-mm-dd") //shows the date is this pattern rather than default pattern from JSON
 	private Date start_date;
+	@JsonFormat(pattern ="yyyy-mm-dd") //shows the date is this pattern rather than default pattern from JSON
 	private Date end_date;
 	
+	@JsonFormat(pattern ="yyyy-mm-dd") //shows the date is this pattern rather than default pattern from JSON
 	private Date created_At;
+	@JsonFormat(pattern ="yyyy-mm-dd") //shows the date is this pattern rather than default pattern from JSON
 	private Date updated_At;
 	
 	//Constructor
