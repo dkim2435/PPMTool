@@ -8,10 +8,10 @@
 		<version>2.2.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>io.agilepractice</groupId>
-	<artifactId>ppmtool</artifactId>
+	<groupId>fullstackJavaReact</groupId>
+	<artifactId>ppmtoolBackend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ppmtool</name>
+	<name>ppmtoolBackend</name>
 	<description>Personal Project Management Tool</description>
 
 	<properties>

@@ -1,10 +1,10 @@
-package io.agilepractice.ppmtool;
+package fullstackJavaReact.ppmtoolBackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PpmtoolApplicationTests {
+class PpmtoolBackendApplicationTests {
 
 	@Test
 	void contextLoads() {

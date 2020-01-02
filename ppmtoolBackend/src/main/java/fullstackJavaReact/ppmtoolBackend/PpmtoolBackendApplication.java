@@ -1,13 +1,13 @@
-package io.agilepractice.ppmtool;
+package fullstackJavaReact.ppmtoolBackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PpmtoolApplication {
+public class PpmtoolBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PpmtoolApplication.class, args);
+		SpringApplication.run(PpmtoolBackendApplication.class, args);
 	}
 
 }
