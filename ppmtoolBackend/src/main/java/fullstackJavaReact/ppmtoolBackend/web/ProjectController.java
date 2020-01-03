@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fullstackJavaReact.ppmtoolBackend.domain.Project;
+import fullstackJavaReact.ppmtoolBackend.services.MapValidationErrorService;
 import fullstackJavaReact.ppmtoolBackend.services.ProjectService;
 
 
@@ -30,24 +31,18 @@ public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
 	
+	@Autowired
+	private MapValidationErrorService mapValidationErrorService;
+	
 	
 	//Create a new route that we can POST our new project.
 	@PostMapping("")
 	// ResponseEntity lets us have control to our JSON objects.
 	// Adding @Valid will display 400 status if the object created is invalid
 	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result){
-		if(result.hasErrors()) {
-			
-			// only pull out "field" and "errorMessage" from List<FieldError> and make our own error message
-			Map<String, String> errorMap = new HashMap<>();
-			for(FieldError error: result.getFieldErrors()) {
-				errorMap.put(error.getField(), error.getDefaultMessage());
-			}
-			
-			return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
-		}
 		
-
+		ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+		if(errorMap!=null) return errorMap;
 		
 		// saves the project object to the database
 		// make sure when testing in postman, id is auto generated.
@@ -56,6 +51,8 @@ public class ProjectController {
 		// if the POST works, it will show 201 CREATED.
 		return new ResponseEntity<Project>(project, HttpStatus.CREATED);
 	}
+	
+
 
 
 }
