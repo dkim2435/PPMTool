@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,7 @@ public class ProjectController {
 	private MapValidationErrorService mapValidationErrorService;
 	
 	
-	//Create a new route that we can POST our new project.
+//Create a new route that we can POST our new project.
 	@PostMapping("")
 	// ResponseEntity lets us have control to our JSON objects.
 	// Adding @Valid will display 400 status if the object created is invalid
@@ -54,6 +55,7 @@ public class ProjectController {
 		return new ResponseEntity<Project>(project, HttpStatus.CREATED);
 	}
 	
+// Use this mapping to find a specific project by project id	
 	@GetMapping("/{projectId}")
 	public ResponseEntity<?> getProjectById(@PathVariable String projectId){
 		Project project = projectService.findProjectByIdentifier(projectId);
@@ -61,10 +63,18 @@ public class ProjectController {
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 	
+// use this mapping to iterate over the project List and display all the project objects created.	
 	@GetMapping("/all")
 	public Iterable<Project> getAllProjects(){return projectService.findAllProjects();}
 	
 	
+
+	@DeleteMapping("/{projectId}")
+	public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
+		projectService.deleteProjectByIdentifier(projectId);
+		
+		return new ResponseEntity<String>("Project with ID: '"+projectId+"' was deleted", HttpStatus.OK);
+	}
 
 
 

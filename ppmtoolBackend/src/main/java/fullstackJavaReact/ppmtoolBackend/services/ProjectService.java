@@ -14,7 +14,9 @@ public class ProjectService {
 	// autowire/inject to the repository package to use the built in function inside the repository package
 	private ProjectRepository projectRepository;
 	
-	//CRUD METHODS:
+//CRUD METHODS:
+	
+// Create a new project object
 	public Project saveOrUpdateProject(Project project) {
 		// tries to save the created project and if it already exists, it'll catch into the ProjectIdException file for an duplicate
 		try {
@@ -26,6 +28,7 @@ public class ProjectService {
 		
 	}
 	
+// Find a project by Project Identifier
 	public Project findProjectByIdentifier(String projectId) {
 		
 		//extract project object
@@ -40,8 +43,22 @@ public class ProjectService {
 				
 	}
 	
+// Find all the project objects in project List
 	// Iterable returns all the JSON object within the List
 	public Iterable<Project> findAllProjects(){
 		return projectRepository.findAll();
+	}
+	
+	
+// Delete a project by project identifier
+	
+	public void deleteProjectByIdentifier(String projectId) {
+		Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+		
+		if(project == null) {
+			throw new ProjectIdException("Cannot delete Project with ID '" + projectId + "'. This project does not exist");
+		}
+		
+		projectRepository.delete(project);
 	}
 }
