@@ -25,4 +25,18 @@ public class ProjectService {
 		}
 		
 	}
+	
+	public Project findProjectByIdentifier(String projectId) {
+		
+		//extract project object
+		Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+		// projectId.toUpperCase() allows you to type in lowercase id and still read it as a UpperCase and get the project object associated. 
+	
+		if(project == null) {
+			throw new ProjectIdException("Project ID '" + projectId+"' does not exist"); 
+		}
+		
+		return project;
+				
+	}
 }
