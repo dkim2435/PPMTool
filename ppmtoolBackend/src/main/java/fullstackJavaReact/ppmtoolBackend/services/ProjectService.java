@@ -51,7 +51,6 @@ public class ProjectService {
 	
 	
 // Delete a project by project identifier
-	
 	public void deleteProjectByIdentifier(String projectId) {
 		Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 		
