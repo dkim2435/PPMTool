@@ -10,5 +10,10 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 
 	Project findByProjectIdentifier(String projectId);
 
+	// used to find all the projects
+	@Override
+	Iterable<Project> findAll();
+	
+
 	
 }
