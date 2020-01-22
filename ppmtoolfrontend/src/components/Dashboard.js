@@ -2,9 +2,17 @@ import React, { Component } from "react";
 import ProjectItem from "./Project/ProjectItem";
 import CreateProjectButton from "./Project/CreateProjectButton";
 
+import { connect } from "react-redux";
+import { getProjects } from "../actions/projectActions";
+import PropTypes from "prop-types";
+
 // class based components are components that can take props/properties
 
 class Dashboard extends Component {
+  componentDidMount() {
+    this.props.getProjects();
+  }
+
   render() {
     return (
       <div className="projects">
@@ -25,4 +33,14 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+  project: PropTypes.object.isRequired,
+  getProjects: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  // project is coming from the combineReducers in index.js line 7 and extracting the projects array[] in projectReducers line 4.
+  project: state.project
+});
+
+export default connect(mapStateToProps, { getProjects })(Dashboard);
