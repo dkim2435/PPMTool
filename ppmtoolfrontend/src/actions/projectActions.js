@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS, GET_PROJECTS, GET_PROJECT } from "./types";
+import { GET_ERRORS, GET_PROJECTS, GET_PROJECT, DELETE_PROJECT } from "./types";
 
 // history is what is going to allow to redirect once the form is submitted (redirect to dashboard)
 // dispatch is what we're going to be returning
@@ -42,4 +42,12 @@ export const getProject = (id, history) => async dispatch => {
   } catch (error) {
     history.push("/dashboard");
   }
+};
+
+export const deleteProject = id => async dispatch => {
+  await axios.delete(`http://localhost:8080/api/project/${id}`);
+  dispatch({
+    type: DELETE_PROJECT,
+    payload: id
+  });
 };
