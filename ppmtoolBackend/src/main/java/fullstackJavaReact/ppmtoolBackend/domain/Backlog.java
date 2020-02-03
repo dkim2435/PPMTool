@@ -1,9 +1,14 @@
 package fullstackJavaReact.ppmtoolBackend.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Backlog {
@@ -18,6 +23,10 @@ public class Backlog {
 
 	
 	// OneToOne with project, meaning each project will have one backlog, backlog only belongs to that specific project
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="project_id", nullable = false)
+	@JsonIgnore // to stop recursion of objects
+	private Project project;
 	
 	// OnToMany project tasks, meaning backlog can have more than one project task but a project task can only belong to one backlog
 	
@@ -55,6 +64,18 @@ public class Backlog {
 	public void setProjectIdentifier(String projectIdentifier) {
 		this.projectIdentifier = projectIdentifier;
 	}
+
+
+	public Project getProject() {
+		return project;
+	}
+
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+	
+	
 	
 	
 	

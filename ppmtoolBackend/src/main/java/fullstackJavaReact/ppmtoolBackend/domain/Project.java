@@ -2,11 +2,14 @@ package fullstackJavaReact.ppmtoolBackend.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
@@ -43,6 +46,9 @@ public class Project {
 	private Date created_At;
 	@JsonFormat(pattern ="yyyy-mm-dd") //shows the date is this pattern rather than default pattern from JSON
 	private Date updated_At;
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project") // this makes the project object to be the owning side of the relationship
+	private Backlog backlog;
 	
 	//Constructor
 	public Project() {
@@ -125,5 +131,15 @@ public class Project {
 		// every time we update an object, we are going to update the date
 		this.updated_At = new Date();
 	}
+
+	public Backlog getBacklog() {
+		return backlog;
+	}
+
+	public void setBacklog(Backlog backlog) {
+		this.backlog = backlog;
+	}
+	
+	
 	
 }
